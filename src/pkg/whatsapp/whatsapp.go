@@ -368,6 +368,8 @@ func forwardToWebhook(evt *events.Message) error {
 		"sticker":        stickerMedia,
 		"video":          videoMedia,
 		"view_once":      evt.Message.GetViewOnceMessage(),
+		"ServerID":       evt.Info.ServerID,
+		"MessageID":      evt.Info.ID,
 	}
 
 	if imageMedia != nil {
