@@ -20,4 +20,4 @@ WORKDIR /app
 # Copy compiled from builder.
 COPY --from=builder /app/whatsapp /app/whatsapp
 # Run the binary.
-ENTRYPOINT ["/app/whatsapp"]
+ENTRYPOINT ["/app/whatsapp" , "--webhook=https://bot.clienteprime.com.br/hook/", "-b=admin:admin@321"]
