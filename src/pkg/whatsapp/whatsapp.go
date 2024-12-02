@@ -339,6 +339,9 @@ func forwardToWebhook(evt *events.Message) error {
 		}
 	}
 
+	var numeroBot any
+	numeroBot = cli.Store.ID.User
+
 	var forwarded bool
 	if evt.Message.ExtendedTextMessage != nil && evt.Message.ExtendedTextMessage.ContextInfo != nil {
 		forwarded = evt.Message.ExtendedTextMessage.ContextInfo.GetIsForwarded()
@@ -351,25 +354,26 @@ func forwardToWebhook(evt *events.Message) error {
 	}
 
 	body := map[string]interface{}{
-		"audio":          audioMedia,
-		"contact":        evt.Message.GetContactMessage(),
-		"document":       documentMedia,
-		"forwarded":      forwarded,
-		"from":           evt.Info.SourceString(),
-		"image":          imageMedia,
-		"list":           evt.Message.GetListMessage(),
-		"live_location":  evt.Message.GetLiveLocationMessage(),
-		"location":       evt.Message.GetLocationMessage(),
-		"message":        message,
-		"order":          evt.Message.GetOrderMessage(),
-		"pushname":       evt.Info.PushName,
-		"quoted_message": quotedmessage,
-		"reaction":       waReaction,
-		"sticker":        stickerMedia,
-		"video":          videoMedia,
-		"view_once":      evt.Message.GetViewOnceMessage(),
-		"ServerID":       evt.Info.ServerID,
-		"MessageID":      evt.Info.ID,
+		"audio":             audioMedia,
+		"contact":           evt.Message.GetContactMessage(),
+		"document":          documentMedia,
+		"forwarded":         forwarded,
+		"from":              evt.Info.SourceString(),
+		"image":             imageMedia,
+		"list":              evt.Message.GetListMessage(),
+		"live_location":     evt.Message.GetLiveLocationMessage(),
+		"location":          evt.Message.GetLocationMessage(),
+		"message":           message,
+		"order":             evt.Message.GetOrderMessage(),
+		"DeviceSentMessage": evt.Message.DeviceSentMessage,
+		"pushname":          evt.Info.PushName,
+		"quoted_message":    quotedmessage,
+		"reaction":          waReaction,
+		"sticker":           stickerMedia,
+		"video":             videoMedia,
+		"view_once":         evt.Message.GetViewOnceMessage(),
+		"from2":             evt.Info.Chat.User,
+		"numeroBot":         numeroBot,
 	}
 
 	if imageMedia != nil {
