@@ -29,10 +29,11 @@
 
     <div class="ui success message" v-if="connected_devices != null">
         <div class="header">
-            Device has connected
+           Whatsapp Conectado!
         </div>
         <p>
-            Device ID: <b>[[ connected_devices[0].device ]]</b>
+            Device ID: <b>[[ connected_devices[0].device ]]</b><br>
+            Token: <b>[[ authToken ]]</b>
         </p>
     </div>
 
@@ -194,6 +195,7 @@
             return {
                 app_ws: null,
                 connected_devices: null,
+                authToken: '',
             }
         },
         methods: {
@@ -233,6 +235,10 @@
             } else {
                 console.error('Your browser does not support WebSockets');
             }
+
+            const rawToken = window.http.defaults.headers.common['Authorization'] || 'Token não encontrado';
+            this.authToken = rawToken.replace(/^Basic\s/, '');
+    
         },
     }).mount('#app')
 </script>
